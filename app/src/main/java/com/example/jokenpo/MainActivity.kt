@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -21,16 +22,24 @@ class MainActivity : AppCompatActivity() {
     private fun setListeners() {
 
         binding.imStone.setOnClickListener {
-            binding.tvResult.text = "Pedra!"
+            evaluateRound("Stone")
         }
 
         binding.imPaper.setOnClickListener {
-            binding.tvResult.text = "Papel!"
+            evaluateRound("Paper")
         }
 
         binding.imScissor.setOnClickListener {
-            binding.tvResult.text = "Tesoura!"
+            evaluateRound("Scissor")
         }
+
+    }
+
+    private fun evaluateRound(choice: String){
+
+        val result: String = "$choice!"
+
+        binding.tvResult.text = result
 
     }
 
