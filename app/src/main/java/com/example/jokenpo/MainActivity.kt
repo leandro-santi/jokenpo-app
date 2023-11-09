@@ -2,12 +2,11 @@ package com.example.jokenpo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.viewbinding.ViewBinding
 import com.example.jokenpo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -35,11 +34,34 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun evaluateRound(choice: String){
+    private fun evaluateRound(choice: String) {
 
-        val result: String = "$choice!"
+        val result: String
+        val iaOptions = listOf("Stone", "Paper", "Scissor")
+        val opponentChoice = iaOptions.random()
+
+        changeOpponentImageChoice(opponentChoice)
+
+        result = when {
+            (choice == opponentChoice) -> "Draw!"
+            (choice == "Stone" && opponentChoice == "Scissor") ||
+                    (choice == "Paper" && opponentChoice == "Stone") ||
+                    (choice == "Scissor" && opponentChoice == "Paper") -> "You Won!"
+
+            else -> "You Lose!"
+        }
 
         binding.tvResult.text = result
+
+    }
+
+    private fun changeOpponentImageChoice(choice: String) {
+
+        when (choice) {
+            "Stone" -> binding.imOpponentOption.setImageResource(R.drawable.stone)
+            "Paper" -> binding.imOpponentOption.setImageResource(R.drawable.paper)
+            "Scissor" -> binding.imOpponentOption.setImageResource(R.drawable.scissor)
+        }
 
     }
 
